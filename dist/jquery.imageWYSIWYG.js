@@ -24,9 +24,27 @@
                 'class': 'images-wysiwyg-container'
             }).html(this.images);
 
+            var self = this;
+            $.each(this.config.images, function() {
+                self.addImage(this);
+            });
+
             this.$te.before(this.container);
 
             this.addButton();
+        },
+
+        addImage: function(image) {
+            var imageTag = $('<img>', {
+                src: image,
+                alt: 'Text'
+            });
+
+            var imageHolder = $('<li>', {
+                'class': 'item'
+            }).html(imageTag);
+
+            this.images.append(imageHolder);
         },
 
         addButton: function() {
@@ -62,6 +80,7 @@
     };
 
     $.fn.imageWYSIWYG.defaults = {
+        images: []
     };
 
 }(jQuery));

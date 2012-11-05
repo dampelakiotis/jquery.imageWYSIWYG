@@ -24,13 +24,15 @@
     -webkit-border-radius: 5px;
     -khtml-border-radius: 5px;
     border-radius: 5px;
-}
-
-/*
-li.images-wysiwyg-item {
     position: relative;
 }
 
+.images-wysiwyg-container ul li img {
+    height: 200px;
+    margin: 5px;
+}
+
+/*
 li.images-wysiwyg-item p, .images-wysiwyg-upload p {
     margin: 4px 10px 4px;
 }

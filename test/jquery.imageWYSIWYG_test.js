@@ -28,9 +28,17 @@
         }
     });
 
+    test('is available on the jquery object', 1, function() {
+        ok($.fn.imageWYSIWYG, 'Should be accessible on a collection');
+    });
+
     test('is chainable', 1, function() {
         this.elems.jqte();
         strictEqual(this.elems.imageWYSIWYG(), this.elems, 'should be chaninable');
+    });
+
+    test('offers a default object on imageWYSIWYG namespace', 1, function() {
+        ok(!!$.fn.imageWYSIWYG.defaults, 'the user can change the defaults');
     });
 
     test('loads jquery text editor', 1, function() {
@@ -72,6 +80,16 @@
         button.click().click();
         strictEqual( button.text(), 'Add Image', 'has the text add image');
         strictEqual( container.css('display'), 'none', 'container opens');
+    });
+
+    test('loads images from a config array', 2, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: ['http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg','http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg']
+        });
+        var image = this.elems.parent().find('li');
+        strictEqual( $(image[0]).find('img').attr('src'), 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg', 'image matches config input');
+        strictEqual( $(image[1]).find('img').attr('src'), 'http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg', 'image matches config input');
     });
 
 }(jQuery));
