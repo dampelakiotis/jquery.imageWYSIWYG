@@ -11,17 +11,27 @@ Download the [production version][min] or the [development version][max].
 In your web page:
 
 ```html
+<form action=".">
+    <textarea name="text" rows="10" class="image-picker" cols="30">
+    </textarea>
+</form>
 <script src="jquery.js"></script>
+<script src="jquery-te.min.js"></script>
 <script src="dist/jquery.imageWYSIWYG.min.js"></script>
 <script>
 jQuery(function($) {
-  $.awesome(); // "awesome"
+    <!-- jQuery Text Editor -->
+    $('textarea.image-picker').jqte();
+    <!-- Image picker plugin -->
+    $('textarea.image-picker').imageWYSIWYG();
 });
 </script>
 ```
 
 ## Documentation
-_(Coming soon)_
+Dependencies:
+jQuery Form Plugin: http://www.malsup.com/jquery/form/
+jQuery Text Editor: http://jqueryte.com/
 
 ## Examples
 _(Coming soon)_

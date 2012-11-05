@@ -24,7 +24,7 @@
 
   module('jQuery#imageWYSIWYG', {
     setup: function() {
-      this.elems = $('#test-form');
+      this.elems = $('textarea.image-picker');
     }
   });
 
