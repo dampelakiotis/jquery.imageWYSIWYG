@@ -13,7 +13,6 @@
         init: function(el, config) {
             this.el = el;
             this.$el = $(el);
-
             this.$te = this.$el.prev();
 
             this.config = $.extend({}, $.fn.imageWYSIWYG.defaults, config);
@@ -90,41 +89,50 @@
         },
 
         openImage: function(image) {
+            var modal = this.createOverlay();
+            this.loadViewer(image, modal);
+        },
+
+        createOverlay: function() {
+            var overlay = $('<div>', {'class': 'images-wysiwyg-overlay'}),
+                modal = $('<div>', {'class': 'images-wysiwyg-modal'});
+
+            $('body').append(overlay)
+                .append(modal)
+                .css({'overflow-y':'hidden'});
+            overlay.animate({'opacity':'0.6'}, 200, 'linear')
+                .click(function() {
+                    $(overlay, modal).animate({'opacity':'0'}, 200, 'linear', function(){
+                        overlay.remove();
+                        modal.remove();
+                    });
+                });
+            return modal;
+        },
+
+        loadViewer: function(image, modal) {
             var src = $(image).find('img').attr('src');
-            this.createOverlay();
-            $('.images-wysiwyg-modal').html('<img src="'+src+'" alt="" />');
-            $('.images-wysiwyg-modal img').load(function() {
-                var imgWidth = $('.images-wysiwyg-modal img').width();
-                var imgHeight = $('.images-wysiwyg-modal img').height();
-                var win = $(window),
-                    fullscreen = $('.images-wysiwyg-modal'),
-                    image = fullscreen.find('img'),
-                    imageWidth = image.width(),
-                    imageHeight = image.height(),
-                    imageRatio = imageWidth / imageHeight;
-                var winWidth = win.width(),
-                    winHeight = win.height();
+            modal.html('<img src="'+src+'" alt="" />');
+            var modalImage = modal.find('img');
+            modalImage.load(function() {
+                var imgWidth = modalImage.width(),
+                    imgHeight = modalImage.height(),
+                    win = $(window),
+                    image = modal.find('img'),
+                    imageRatio = image.width() / image.height();
+                var winHeight = win.height();
                 var pageWidth = Math.round((winHeight / 2) * imageRatio),
                     pageHeight = winHeight / 2;
+
                 image.css({
                     width: pageWidth,
                     height: pageHeight
                 });
-                $('.images-wysiwyg-modal').css({
-                    'top': (winHeight / 2) - (pageHeight / 2),
-                    'left': (winWidth / 2) - (pageWidth / 2)
-                }).animate({'opacity':'1'}, 200, 'linear');
-            });
-        },
 
-        createOverlay: function() {
-            $('body').append('<div class="images-wysiwyg-overlay"></div><div class="images-wysiwyg-modal"></div>')
-                .css({'overflow-y':'hidden'});
-            $('.images-wysiwyg-overlay').animate({'opacity':'0.6'}, 200, 'linear').click(function() {
-                $('.images-wysiwyg-modal, .images-wysiwyg-overlay')
-                .animate({'opacity':'0'}, 200, 'linear', function(){
-                    $('.images-wysiwyg-modal, .images-wysiwyg-overlay').remove();
-                });
+                modal.css({
+                    'top':  (winHeight / 2) - (pageHeight / 2),
+                    'left': (win.width() / 2) - (pageWidth / 2)
+                }).animate({'opacity':'1'}, 200, 'linear');
             });
         }
     };
