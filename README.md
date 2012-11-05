@@ -1,6 +1,6 @@
 # jQuery Imagewysiwyg
 
-Add an image chooser to a jquery  te wysiwyg form field.
+Add an image chooser to a jquery te wysiwyg form field.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
@@ -31,7 +31,10 @@ jQuery(function($) {
 ## Documentation
 Dependencies:
 jQuery Form Plugin: http://www.malsup.com/jquery/form/
+Optional:
 jQuery Text Editor: http://jqueryte.com/
+The plugin's defualt configuration works with jquery text editor however
+it can be customized to work with any wysiwyg editor.
 
 ## Examples
 _(Coming soon)_
