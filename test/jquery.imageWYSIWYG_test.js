@@ -49,7 +49,7 @@
     test('adds a button to add open the viewer', 2, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG();
-        var button = this.elems.parent().find('button.addImage');
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
         ok( button, 'adds button');
         strictEqual( button.text(), 'Add Image', 'has the text add image');
     });
@@ -65,7 +65,7 @@
     test('button opens container', 2, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG();
-        var button = this.elems.parent().find('button.addImage');
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
         var container = this.elems.parent().find('div.images-wysiwyg-container');
         button.click();
         strictEqual( button.text(), 'Close', 'button says close');
@@ -75,7 +75,7 @@
     test('button closes container', 2, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG();
-        var button = this.elems.parent().find('button.addImage');
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
         var container = this.elems.parent().find('div.images-wysiwyg-container');
         button.click().click();
         strictEqual( button.text(), 'Add Image', 'has the text add image');
@@ -99,6 +99,32 @@
         strictEqual( $(image[0]).find('p').text(), 'Apple 1', 'desciption matches config input');
         strictEqual( $(image[1]).find('img').attr('src'), 'http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg', 'image matches config input');
         strictEqual( $(image[1]).find('p').text(), 'Apple 2', 'description matches config input');
+    });
+
+    asyncTest('open image modal', 2, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: [{
+                    'src': 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg',
+                    'description': 'Apple 1'
+                }, {
+                    'src': 'http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg',
+                    'description': 'Apple 2'
+                }
+            ]
+        });
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        button.click();
+        var image = this.elems.parent().find('a');
+        $(image[0]).click();
+        $('.images-wysiwyg-modal img').load(function() {
+            strictEqual( $('.images-wysiwyg-modal img').attr('src'), 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg', 'shows the right image in the modal');
+            $('.images-wysiwyg-overlay').click();
+            setTimeout(function() {
+                ok(!$('.images-wysiwyg-overlay').length, 'closed modal');
+                start();
+            }, 500);
+        });
     });
 
 }(jQuery));

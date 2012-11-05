@@ -1,3 +1,23 @@
+.images-wysiwyg-overlay {
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background:#000;
+    opacity:0;
+    filter:alpha(opacity=0);
+    z-index:50;
+}
+
+.images-wysiwyg-modal {
+    position:absolute;
+    opacity:0;
+    filter:alpha(opacity=0);
+    left:-9999em;
+    z-index:51;
+}
+
 .images-wysiwyg-container {
     display: none;
     height: 280px;
@@ -28,7 +48,7 @@
 }
 
 .images-wysiwyg-container ul li img {
-    height: 200px;
+    max-height: 200px;
     margin: 5px;
 }
 
