@@ -1,0 +1,28 @@
+{
+  "name": "jquery.imageWYSIWYG",
+  "title": "jQuery Imagewysiwyg",
+  "description": "Add an image chooser to a jquery  te wysiwyg form field.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/nickromano/jquery.imageWYSIWYG",
+  "author": {
+    "name": "Nick Romano",
+    "email": "nick.r.romano@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nickromano/jquery.imageWYSIWYG.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nickromano/jquery.imageWYSIWYG/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "https://github.com/nickromano/jquery.imageWYSIWYG/blob/master/LICENSE-GPL"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">= 1.6"
+  },
+  "keywords": []
+}
