@@ -40,13 +40,17 @@
 
         addImage: function(image) {
             var imageTag = $('<img>', {
-                src: image,
-                alt: 'Text'
+                src: image.src,
+                alt: image.description
+            });
+
+            var description = $('<p>', {
+                text: image.description
             });
 
             var imageHolder = $('<li>', {
                 'class': 'item'
-            }).html(imageTag);
+            }).html(imageTag).append(description);
 
             this.images.append(imageHolder);
         },

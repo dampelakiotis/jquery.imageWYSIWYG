@@ -19,7 +19,16 @@
             <!-- jQuery Text Editor -->
             $('textarea.image-picker').jqte();
             <!-- Image picker plugin -->
-            $('textarea.image-picker').imageWYSIWYG();
+            $('textarea.image-picker').imageWYSIWYG({
+                images: [{
+                        'src': 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg',
+                        'description': 'Apple 1'
+                    }, {
+                        'src': 'http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg',
+                        'description': 'Apple 2'
+                    }
+                ]
+            });
         });
     </script>
 </body>

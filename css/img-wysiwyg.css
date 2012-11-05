@@ -32,10 +32,11 @@
     margin: 5px;
 }
 
-/*
-li.images-wysiwyg-item p, .images-wysiwyg-upload p {
+.images-wysiwyg-container ul li p {
     margin: 4px 10px 4px;
 }
+
+/*
 
 .overlay {
     position: absolute;
