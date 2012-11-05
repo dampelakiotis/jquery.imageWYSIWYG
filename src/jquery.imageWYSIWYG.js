@@ -7,22 +7,27 @@
  */
 
 (function($) {
+    "use strict";
 
-  // Collection method.
-  $.fn.awesome = function() {
-    return this.each(function() {
-      $(this).html('awesome');
-    });
-  };
+    var imageWYSIWYG = {
+        init: function(el, config) {
+            this.el = el;
+            this.$el = $(el);
 
-  // Static method.
-  $.awesome = function() {
-    return 'awesome';
-  };
+            this.config = $.extend({}, $.fn.imageWYSIWYG.defaults, config);
+        }
+    };
 
-  // Custom selector.
-  $.expr[':'].awesome = function(elem) {
-    return elem.textContent.indexOf('awesome') >= 0;
-  };
+    $.fn.imageWYSIWYG = function(config) {
+        var obj = Object.create(imageWYSIWYG);
+
+        return this.each(function() {
+            obj.init(this, config);
+        });
+    };
+
+    $.fn.imageWYSIWYG.defaults = {
+    };
+
 
 }(jQuery));
