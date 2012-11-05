@@ -31,6 +31,8 @@ jQuery(function($) {
 ## Documentation
 Dependencies:
 jQuery Form Plugin: http://www.malsup.com/jquery/form/
+Required for ajax image uploading from the plugin.
+
 Optional:
 jQuery Text Editor: http://jqueryte.com/
 The plugin's defualt configuration works with jquery text editor however

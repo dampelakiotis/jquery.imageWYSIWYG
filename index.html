@@ -1,0 +1,26 @@
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"0>
+
+    <title>Example</title>
+    <link rel="stylesheet" href="libs/jquery-te/jquery-te.css" type="text/css" media="screen" charset="utf-8"0>
+    <link rel="stylesheet" href="css/img-wysiwyg.css" type="text/css" media="screen" charset="utf-8"0>
+</head>
+<body>
+    <form action="." method="post" accept-charset="utf-8">
+        <p><textarea class="image-picker" name="" rows="10" cols="30"></textarea></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+    <script src="libs/jquery/jquery.js"></script>
+    <script src="libs/jquery-te/jquery-te.min.js"></script>
+    <script src="src/jquery.imageWYSIWYG.js"></script>
+    <script>
+        jQuery(function($) {
+            <!-- jQuery Text Editor -->
+            $('textarea.image-picker').jqte();
+            <!-- Image picker plugin -->
+            $('textarea.image-picker').imageWYSIWYG();
+        });
+    </script>
+</body>
+</html>
