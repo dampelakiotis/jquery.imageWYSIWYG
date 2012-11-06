@@ -118,13 +118,12 @@
                 var imgWidth = modalImage.width(),
                     imgHeight = modalImage.height(),
                     win = $(window),
-                    image = modal.find('img'),
-                    imageRatio = image.width() / image.height();
+                    imageRatio = modalImage.width() / modalImage.height();
                 var winHeight = win.height();
                 var pageWidth = Math.round((winHeight / 2) * imageRatio),
                     pageHeight = winHeight / 2;
 
-                image.css({
+                modalImage.css({
                     width: pageWidth,
                     height: pageHeight
                 });
