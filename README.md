@@ -1,4 +1,5 @@
 # jQuery Imagewysiwyg
+[![Build Status](https://secure.travis-ci.org/nickromano/jquery.imageWYSIWYG.png)](http://travis-ci.org/nickromano/jquery.imageWYSIWYG)
 
 Add an image chooser to a jquery te wysiwyg form field.
 
