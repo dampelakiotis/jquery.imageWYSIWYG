@@ -1,4 +1,4 @@
-/*! jQuery Imagewysiwyg - v0.1.0 - 2012-11-05
+/*! jQuery Imagewysiwyg - v0.1.0 - 2012-11-09
 * https://github.com/nickromano/jquery.imageWYSIWYG
 * Copyright (c) 2012 Nick Romano; Licensed GPL */
 
@@ -110,17 +110,17 @@
             var src = $(image).find('img').attr('src');
             modal.html('<img src="'+src+'" alt="" />');
             var modalImage = modal.find('img');
+            var self = this;
             modalImage.load(function() {
                 var imgWidth = modalImage.width(),
                     imgHeight = modalImage.height(),
                     win = $(window),
-                    image = modal.find('img'),
-                    imageRatio = image.width() / image.height();
+                    imageRatio = modalImage.width() / modalImage.height();
                 var winHeight = win.height();
                 var pageWidth = Math.round((winHeight / 2) * imageRatio),
                     pageHeight = winHeight / 2;
 
-                image.css({
+                modalImage.css({
                     width: pageWidth,
                     height: pageHeight
                 });
@@ -129,7 +129,20 @@
                     'top':  (winHeight / 2) - (pageHeight / 2),
                     'left': (win.width() / 2) - (pageWidth / 2)
                 }).animate({'opacity':'1'}, 200, 'linear');
+
+                self.addSizeSelector(modal, modalImage);
             });
+        },
+
+        addSizeSelector: function(modal, modalImage) {
+            var modalDescription = $('<p>', {
+                text: 'Size: '
+            }).css({
+                margin: '0',
+                background: 'white'
+            });
+
+            modalImage.after(modalDescription);
         }
     };
 

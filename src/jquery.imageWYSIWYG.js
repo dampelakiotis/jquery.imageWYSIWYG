@@ -114,6 +114,7 @@
             var src = $(image).find('img').attr('src');
             modal.html('<img src="'+src+'" alt="" />');
             var modalImage = modal.find('img');
+            var self = this;
             modalImage.load(function() {
                 var imgWidth = modalImage.width(),
                     imgHeight = modalImage.height(),
@@ -132,7 +133,20 @@
                     'top':  (winHeight / 2) - (pageHeight / 2),
                     'left': (win.width() / 2) - (pageWidth / 2)
                 }).animate({'opacity':'1'}, 200, 'linear');
+
+                self.addSizeSelector(modal, modalImage);
             });
+        },
+
+        addSizeSelector: function(modal, modalImage) {
+            var modalDescription = $('<p>', {
+                text: 'Size: '
+            }).css({
+                margin: '0',
+                background: 'white'
+            });
+
+            modalImage.after(modalDescription);
         }
     };
 

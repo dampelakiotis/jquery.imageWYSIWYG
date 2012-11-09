@@ -25,6 +25,14 @@
     module('jQuery#imageWYSIWYG', {
         setup: function() {
             this.elems = $('textarea.image-picker');
+            this.imgs = [{
+                    'src': 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg',
+                    'description': 'Apple 1'
+                }, {
+                    'src': 'http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg',
+                    'description': 'Apple 2'
+                }
+            ];
         }
     });
 
@@ -85,14 +93,7 @@
     test('loads images from a config array', 4, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG({
-            images: [{
-                    'src': 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg',
-                    'description': 'Apple 1'
-                }, {
-                    'src': 'http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg',
-                    'description': 'Apple 2'
-                }
-            ]
+            images: this.imgs
         });
         var image = this.elems.parent().find('li');
         strictEqual( $(image[0]).find('img').attr('src'), 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg', 'image matches config input');
@@ -104,14 +105,7 @@
     asyncTest('open image modal', 2, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG({
-            images: [{
-                    'src': 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg',
-                    'description': 'Apple 1'
-                }, {
-                    'src': 'http://blog.acorn-is.com/wp-content/uploads/apple-full2.jpg',
-                    'description': 'Apple 2'
-                }
-            ]
+            images: this.imgs
         });
         var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
         button.click();
@@ -119,6 +113,25 @@
         $(image[0]).click();
         $('.images-wysiwyg-modal img').load(function() {
             strictEqual( $('.images-wysiwyg-modal img').attr('src'), 'http://www.crunchbase.com/assets/images/resized/0005/4061/54061v1-max-250x250.jpg', 'shows the right image in the modal');
+            $('.images-wysiwyg-overlay').click();
+            setTimeout(function() {
+                ok(!$('.images-wysiwyg-overlay').length, 'closed modal');
+                start();
+            }, 500);
+        });
+    });
+
+    asyncTest('modal has description', 2, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: this.imgs
+        });
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        button.click();
+        var image = this.elems.parent().find('a');
+        $(image[0]).click();
+        $('.images-wysiwyg-modal img').load(function() {
+            strictEqual( $('.images-wysiwyg-modal p').text(), 'Size: ', 'shows the right text');
             $('.images-wysiwyg-overlay').click();
             setTimeout(function() {
                 ok(!$('.images-wysiwyg-overlay').length, 'closed modal');
