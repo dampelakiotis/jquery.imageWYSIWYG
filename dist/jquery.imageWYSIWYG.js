@@ -179,7 +179,9 @@
                 click: function(e) {
                     e.preventDefault();
                     var insertImage = $('<img>', {
-                        src: modalImage.attr('src')
+                        src: modalImage.attr('src'),
+                        height: modalImage.css('height'),
+                        width: modalImage.css('width')
                     });
                     self.$te.find('.jqte_Content').append(insertImage);
                     self.closeOverlay();

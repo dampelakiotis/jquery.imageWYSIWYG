@@ -225,4 +225,28 @@
             }, 500);
         });
     });
+
+    asyncTest('image is correctly sized in editor', 2, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: this.imgs
+        });
+        var button = this.elems.parent().find('button');
+        button.click();
+        var image = this.elems.parent().find('a');
+        $(image[0]).click();
+        var self = this;
+        $('.images-wysiwyg-modal img').load(function() {
+            var modalImage = $('.images-wysiwyg-modal').find('img');
+            var insertButton = $('.images-wysiwyg-modal').find('button');
+            insertButton.click();
+            var editorImage = $('.jqte_Content').find('img');
+            strictEqual( editorImage.css('height'), modalImage.css('height'), 'image height is correct');
+            strictEqual( editorImage.css('width'), modalImage.css('width'), 'image width is correct');
+            $('.images-wysiwyg-overlay').click();
+            setTimeout(function() {
+                start();
+            }, 500);
+        });
+    });
 }(jQuery));
