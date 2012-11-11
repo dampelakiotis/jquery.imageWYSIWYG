@@ -140,4 +140,49 @@
         });
     });
 
+    asyncTest('modal has slider with correct value', 3, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: this.imgs
+        });
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        button.click();
+        var image = this.elems.parent().find('a');
+        $(image[0]).click();
+        $('.images-wysiwyg-modal img').load(function() {
+            var modalImage = $('.images-wysiwyg-modal').find('img');
+            var slider = $('.images-wysiwyg-modal input[type=range]');
+            ok( slider , 'shows the slider');
+            strictEqual( slider.attr('value') + 'px', modalImage.css('height'), 'Height matches slider');
+            $('.images-wysiwyg-overlay').click();
+            setTimeout(function() {
+                ok(!$('.images-wysiwyg-overlay').length, 'closed modal');
+                start();
+            }, 500);
+        });
+    });
+
+    asyncTest('modal slider changes image size based on value', 2, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: this.imgs
+        });
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        button.click();
+        var image = this.elems.parent().find('a');
+        $(image[0]).click();
+        $('.images-wysiwyg-modal img').load(function() {
+            var modalImage = $('.images-wysiwyg-modal').find('img');
+            var slider = $('.images-wysiwyg-modal input[type=range]');
+            slider.attr('value', modalImage.height() / 2);
+            $(slider).change();
+            strictEqual( slider.attr('value') + 'px', modalImage.css('height'), 'Height matches slider');
+            $('.images-wysiwyg-overlay').click();
+            setTimeout(function() {
+                ok(!$('.images-wysiwyg-overlay').length, 'closed modal');
+                start();
+            }, 500);
+        });
+    });
+
 }(jQuery));

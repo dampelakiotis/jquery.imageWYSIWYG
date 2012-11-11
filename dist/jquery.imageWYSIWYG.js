@@ -1,4 +1,4 @@
-/*! jQuery Imagewysiwyg - v0.1.0 - 2012-11-09
+/*! jQuery Imagewysiwyg - v0.1.0 - 2012-11-11
 * https://github.com/nickromano/jquery.imageWYSIWYG
 * Copyright (c) 2012 Nick Romano; Licensed GPL */
 
@@ -130,19 +130,39 @@
                     'left': (win.width() / 2) - (pageWidth / 2)
                 }).animate({'opacity':'1'}, 200, 'linear');
 
-                self.addSizeSelector(modal, modalImage);
+                self.addSizeSelector(modal, modalImage, imgHeight, pageHeight, imageRatio);
             });
         },
 
-        addSizeSelector: function(modal, modalImage) {
+        addSizeSelector: function(modal, modalImage, imgHeight, pageHeight, imageRatio) {
+            // if the size of image in the modal is larger than its original size then make the slider adjust accordingly
+            if ( pageHeight > imgHeight ) {
+                imgHeight = pageHeight;
+            }
+            
+            var newSize = pageHeight / imgHeight,
+                slider = $('<input>', {
+                    type: 'range',
+                    min: '0',
+                    max: imgHeight
+                }).on('change', function() {
+                    var currentSize = $(this).attr('value');
+                    modalImage.css({
+                        height: currentSize,
+                        width: currentSize * imageRatio
+                    });
+                });
+
             var modalDescription = $('<p>', {
                 text: 'Size: '
             }).css({
                 margin: '0',
                 background: 'white'
-            });
+            }).append(slider);
 
-            modalImage.after(modalDescription);
+            slider.attr('value',pageHeight);
+        
+            modalImage.before(modalDescription);
         }
     };
 
