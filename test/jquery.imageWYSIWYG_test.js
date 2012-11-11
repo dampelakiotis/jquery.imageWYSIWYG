@@ -131,7 +131,7 @@
         var image = this.elems.parent().find('a');
         $(image[0]).click();
         $('.images-wysiwyg-modal img').load(function() {
-            strictEqual( $('.images-wysiwyg-modal p').text(), 'Size: ', 'shows the right text');
+            strictEqual( $('.images-wysiwyg-modal p').text(), 'Size: Insert', 'shows the right text');
             $('.images-wysiwyg-overlay').click();
             setTimeout(function() {
                 ok(!$('.images-wysiwyg-overlay').length, 'closed modal');
@@ -180,6 +180,26 @@
             $('.images-wysiwyg-overlay').click();
             setTimeout(function() {
                 ok(!$('.images-wysiwyg-overlay').length, 'closed modal');
+                start();
+            }, 500);
+        });
+    });
+
+    asyncTest('has button to insert image', 2, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: this.imgs
+        });
+        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        button.click();
+        var image = this.elems.parent().find('a');
+        $(image[0]).click();
+        $('.images-wysiwyg-modal img').load(function() {
+            var insertButton = $('.images-wysiwyg-modal').find('button');
+            ok( insertButton.length, 'adds insert button');
+            strictEqual( insertButton.text(), 'Insert', 'Button has insert text');
+            $('.images-wysiwyg-overlay').click();
+            setTimeout(function() {
                 start();
             }, 500);
         });

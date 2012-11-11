@@ -143,7 +143,7 @@
             if ( pageHeight > imgHeight ) {
                 imgHeight = pageHeight;
             }
-            
+
             var newSize = pageHeight / imgHeight,
                 slider = $('<input>', {
                     type: 'range',
@@ -165,8 +165,22 @@
             }).append(slider);
 
             slider.attr('value',pageHeight);
-        
+
             modalImage.before(modalDescription);
+            
+            this.addInsertButton(modalDescription);
+        },
+
+        addInsertButton: function(modalDescription) {
+            var insertButton = $('<button>', {
+                text: 'Insert',
+                'class': 'images-wysiwyg-insert-image',
+                click: function(e) {
+                    e.preventDefault();
+                }
+            });
+
+            modalDescription.append(insertButton);
         }
     };
 

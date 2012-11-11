@@ -16,6 +16,15 @@
     filter:alpha(opacity=0);
     left:-9999em;
     z-index:51;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 8px;
+    background: white;
+}
+
+.images-wysiwyg-modal button {
+    padding: 8px;
 }
 
 .images-wysiwyg-container {
