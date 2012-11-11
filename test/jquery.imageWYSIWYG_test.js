@@ -57,7 +57,7 @@
     test('adds a button to add open the viewer', 2, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG();
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         ok( button, 'adds button');
         strictEqual( button.text(), 'Add Image', 'has the text add image');
     });
@@ -73,7 +73,7 @@
     test('button opens container', 2, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG();
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         var container = this.elems.parent().find('div.images-wysiwyg-container');
         button.click();
         strictEqual( button.text(), 'Close', 'button says close');
@@ -83,7 +83,7 @@
     test('button closes container', 2, function() {
         this.elems.jqte();
         this.elems.imageWYSIWYG();
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         var container = this.elems.parent().find('div.images-wysiwyg-container');
         button.click().click();
         strictEqual( button.text(), 'Add Image', 'has the text add image');
@@ -107,7 +107,7 @@
         this.elems.imageWYSIWYG({
             images: this.imgs
         });
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         button.click();
         var image = this.elems.parent().find('a');
         $(image[0]).click();
@@ -126,7 +126,7 @@
         this.elems.imageWYSIWYG({
             images: this.imgs
         });
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         button.click();
         var image = this.elems.parent().find('a');
         $(image[0]).click();
@@ -145,7 +145,7 @@
         this.elems.imageWYSIWYG({
             images: this.imgs
         });
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         button.click();
         var image = this.elems.parent().find('a');
         $(image[0]).click();
@@ -167,7 +167,7 @@
         this.elems.imageWYSIWYG({
             images: this.imgs
         });
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         button.click();
         var image = this.elems.parent().find('a');
         $(image[0]).click();
@@ -190,7 +190,7 @@
         this.elems.imageWYSIWYG({
             images: this.imgs
         });
-        var button = this.elems.parent().find('button.images-wysiwyg-toggle-container');
+        var button = this.elems.parent().find('button');
         button.click();
         var image = this.elems.parent().find('a');
         $(image[0]).click();
@@ -205,4 +205,24 @@
         });
     });
 
+    asyncTest('insert button adds image to text editor', 1, function() {
+        this.elems.jqte();
+        this.elems.imageWYSIWYG({
+            images: this.imgs
+        });
+        var button = this.elems.parent().find('button');
+        button.click();
+        var image = this.elems.parent().find('a');
+        $(image[0]).click();
+        var self = this;
+        $('.images-wysiwyg-modal img').load(function() {
+            var insertButton = $('.images-wysiwyg-modal').find('button');
+            insertButton.click();
+            strictEqual( $('.jqte_Content').find('img').attr('src'), self.imgs[0].src, 'correct image is placed');
+            $('.images-wysiwyg-overlay').click();
+            setTimeout(function() {
+                start();
+            }, 500);
+        });
+    });
 }(jQuery));

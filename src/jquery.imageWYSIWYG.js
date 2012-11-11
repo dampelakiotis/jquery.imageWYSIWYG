@@ -11,7 +11,6 @@
 
     var imageWYSIWYG = {
         init: function(el, config) {
-            this.el = el;
             this.$el = $(el);
             this.$te = this.$el.prev();
 
@@ -69,7 +68,7 @@
             var self = this;
             this.addImageButton = $('<button>', {
                 text: 'Add Image',
-                'class': 'images-wysiwyg-toggle-container',
+                'class': 'images-wysiwyg-button',
                 click: function(e) {
                     e.preventDefault();
                     self.openPicker();
@@ -89,25 +88,30 @@
         },
 
         openImage: function(image) {
-            var modal = this.createOverlay();
-            this.loadViewer(image, modal);
+            this.createOverlay();
+            this.loadViewer(image, this.modal);
         },
 
         createOverlay: function() {
-            var overlay = $('<div>', {'class': 'images-wysiwyg-overlay'}),
-                modal = $('<div>', {'class': 'images-wysiwyg-modal'});
+            this.overlay = $('<div>', {'class': 'images-wysiwyg-overlay'});
+            this.modal = $('<div>', {'class': 'images-wysiwyg-modal'});
+            var self = this;
 
-            $('body').append(overlay)
-                .append(modal)
+            $('body').append(this.overlay)
+                .append(this.modal)
                 .css({'overflow-y':'hidden'});
-            overlay.animate({'opacity':'0.6'}, 200, 'linear')
+            this.overlay.animate({'opacity':'0.6'}, 200, 'linear')
                 .click(function() {
-                    $(overlay, modal).animate({'opacity':'0'}, 200, 'linear', function(){
-                        overlay.remove();
-                        modal.remove();
-                    });
+                    self.closeOverlay();
                 });
-            return modal;
+        },
+
+        closeOverlay: function() {
+            var self = this;
+            $(this.overlay, this.modal).animate({'opacity':'0'}, 200, 'linear', function(){
+                self.overlay.remove();
+                self.modal.remove();
+            });
         },
 
         loadViewer: function(image, modal) {
@@ -168,15 +172,21 @@
 
             modalImage.before(modalDescription);
             
-            this.addInsertButton(modalDescription);
+            this.addInsertButton(modalDescription, modalImage);
         },
 
-        addInsertButton: function(modalDescription) {
+        addInsertButton: function(modalDescription, modalImage) {
+            var self = this;
             var insertButton = $('<button>', {
                 text: 'Insert',
-                'class': 'images-wysiwyg-insert-image',
+                'class': 'images-wysiwyg-button',
                 click: function(e) {
                     e.preventDefault();
+                    var insertImage = $('<img>', {
+                        src: modalImage.attr('src')
+                    });
+                    self.$te.find('.jqte_Content').append(insertImage);
+                    self.closeOverlay();
                 }
             });
 
